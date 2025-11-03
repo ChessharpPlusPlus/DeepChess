@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEN-Nx Generic Parser</title>
+    <style>
+        /* Base Styles */
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"] { width: 100%; max-width: 600px; padding: 10px; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-bottom: 30px; border-radius: 5px; }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; }
+
+        /* --- BOARD STYLES (CSS) --- */
+        #board-section { display: flex; gap: 40px; margin-bottom: 30px; }
+        
+        .chessboard {
+            display: flex;
+            flex-direction: column; 
+            /* Set a maximum size for the board and let squares adjust */
+            width: 500px; 
+            height: 500px; 
+            border: 5px solid #333;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            /* Default piece size for smaller boards */
+            font-size: 50px; 
+        }
+
+        /* Adjust piece size for larger boards */
+        .chessboard.size-10 { font-size: 35px; } 
+        .chessboard.size-12 { font-size: 30px; }
+        .chessboard.size-14 { font-size: 25px; }
+
+        .rank {
+            display: flex; 
+            flex: 1; /* Ensures each rank takes 1/N of the height */
+        }
+
+        .square {
+            flex: 1; /* Ensures each square takes 1/N of the width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            user-select: none; 
+        }
+
+        /* Piece Colors */
+        .piece.black { color: #000; }
+        .piece.white { color: #fff; text-shadow: 1px 1px 2px #000; } 
+        
+        /* JSON Output Style */
+        #output { 
+            max-width: 600px;
+            padding: 15px; 
+            border: 1px solid #ccc; 
+            background-color: #f9f9f9;
+        }
+        #output pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+        #board-size { margin-bottom: 10px; font-weight: bold; } /* Added size display style */
+    </style>
+</head>
+<body>
+
+    <h1>Generic FEN-Nx Notation Parser</h1>
+
+    <form id="fenForm">
+        <label for="fenInput">Enter FEN-Nx String:</label>
+        <input type="text" id="fenInput" value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" required>
+        <button type="submit">Parse FEN-Nx</button>
+    </form>
+    
+    <div id="board-section">
+        <div>
+            <div id="board-size"></div> <div id="board-container">
+                <p>The board will appear here.</p>
+            </div>
+        </div>
+
+        <div id="output">
+            Awaiting FEN-Nx for analysis...
+        </div>
+    </div>
+
+    <script src="fen-nx-parser.js"></script>
+
+</body>
+</html>
