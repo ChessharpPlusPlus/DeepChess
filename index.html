@@ -25,7 +25,7 @@
             height: 500px; 
             border: 5px solid #333;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            /* Default piece size for smaller boards */
+            /* Default piece size for smaller boards (e.g., 4x4 or 8x8) */
             font-size: 50px; 
         }
 
@@ -33,6 +33,7 @@
         .chessboard.size-10 { font-size: 35px; } 
         .chessboard.size-12 { font-size: 30px; }
         .chessboard.size-14 { font-size: 25px; }
+        .chessboard.size-16 { font-size: 20px; } /* Example for N > 14 if needed */
 
         .rank {
             display: flex; 
@@ -86,6 +87,8 @@
     </div>
 
     <script src="fen-nx-parser.js"></script>
+    
+    <script src="fen-nx-test-runner.js"></script>
 
 </body>
 </html>
