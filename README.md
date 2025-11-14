@@ -11,6 +11,13 @@ The standard FEN is strictly defined for the 8x8 chessboard. FEN-Nx maintains th
 * **Client-Side Visualization:** Generates a dynamic HTML chessboard for visual inspection.
 * **FEN-Nx Parsing Details:** Outputs a structured JSON object containing all 6 fields and the inferred board size.
 
+## 🧪 Testing Status
+
+The parser includes a comprehensive set of **23 automated tests** (Unit/Functional, Boundary, and Negative) implemented in vanilla JavaScript to ensure stability across all board sizes and notation errors.
+
+* **Test Runner:** `fen-nx-test-runner.js`
+* **Status:** **PASSED** (Run in the browser console)
+
 ## 🚀 How to Use
 
 Simply open the `index.html` file in your browser.
@@ -33,7 +40,9 @@ Simply open the `index.html` file in your browser.
 | :--- | :--- |
 | `index.html` | The main interface for the parser. It includes the necessary CSS for dynamic board sizing and loads the JavaScript file. |
 | `fen-nx-parser.js` | The core JavaScript file containing the `parseFenNx` function, which handles the complex logic for inferring the board size (`N`) and correctly parsing empty square counts (`10`, `12`, etc.) by consuming multiple characters. |
-| `README.md` | This file. |
+| `fen-nx-test-runner.js` | Automated test suite (23 cases) written in vanilla JS to validate parser logic and UI integration. |
+| `README.md` | This documentation file. |
+| `CHANGELOG.md` | Documents all notable project changes. |
 
 ## ⚙️ Technical Implementation Details (FEN-Nx-Parser.js)
 
@@ -43,5 +52,5 @@ The logic for generic board support is concentrated in two key areas:
     * The board size `N` is determined by `const N = ranks.length;` (the number of ranks separated by `/`).
 
 2.  **Handling Double-Digit Empty Squares:**
-    * The `parsePiecePlacement` function uses a standard index loop (`for (let i = 0; i < rank.length; i++)`) instead of a `for...of` loop.
-    * When a digit (`1-9`) is encountered, the parser checks the next character. If the next character is `0-9` (e.g., forming `'10'`), it combines them into a single number (`10`) and manually increments the index (`i++`) to skip the second digit. This ensures that `10` is parsed as 10 empty squares, not as 1 empty square followed by an invalid character (0).
+    * The `parsePiecePlacement` function uses an index loop (`for (let i = 0; i < rank.length; i++)`) for lookahead.
+    * When a digit (`1-9`) is encountered, the parser checks the next character. If the next character is `0-9` (e.g., forming `'10'`), it combines them into a single number and manually increments the index (`i++`) to skip the second digit. This ensures that a count like `10` is parsed as 10 empty squares, not as 1 followed by an error.
